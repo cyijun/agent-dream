@@ -1,0 +1,40 @@
+{
+  "skill_name": "agent-dream",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Run a memory consolidation pass for this project. The memory directory is at `/tmp/test-memory`. It has daily logs in `logs/2026/03/` and MEMORY.md is getting huge — I want it cleaned up and summarized.",
+      "expected_output": "The agent reviews the memory directory, reads MEMORY.md, merges key insights from daily logs into topic files, prunes the index to under 200 lines, and reports what changed.",
+      "files": [],
+      "expectations": [
+        "The agent reads the memory directory and MEMORY.md",
+        "The agent reviews recent daily logs",
+        "The agent updates or creates at least one topic memory file",
+        "MEMORY.md is pruned to stay under 200 lines / 25KB",
+        "A brief summary of changes is returned"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Consolidate memories in `/tmp/test-memory`. There's a contradiction: `user_pref_testing.md` says 'use jest' but a log from last week says the user switched to vitest.",
+      "expected_output": "The agent detects the contradiction, updates user_pref_testing.md to reflect the newer preference, fixes the index, and returns a summary.",
+      "files": [],
+      "expectations": [
+        "The agent identifies the contradiction between memory files and logs",
+        "The stale memory is updated or removed",
+        "The consolidated result reflects the newer information"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Run agent-dream.",
+      "expected_output": "When no configuration exists, the agent guides the user to create a .agent-dream.json file with memoryDir and transcriptDir.",
+      "files": [],
+      "expectations": [
+        "The agent detects that .agent-dream.json is missing and no env vars are set",
+        "The agent asks the user for memoryDir and transcriptDir",
+        "The agent helps create a valid .agent-dream.json configuration file"
+      ]
+    }
+  ]
+}
